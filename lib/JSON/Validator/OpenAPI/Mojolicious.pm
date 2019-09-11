@@ -66,7 +66,8 @@ sub validate_request {
   }
 
   for my $p (@{$schema->{parameters} || []}) {
-    my ($in, $name, $type) = @$p{qw(in name type)};
+    my ($in, $name) = @$p{qw(in name)};
+    my $type = $self->version eq '3' ? $p->{schema}{type} : $p->{type};    
     my ($exists, $value) = (0, undef);
 
     if ($in eq 'body') {
